@@ -1,75 +1,879 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>URSSAF Discord</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f5f5f5;
-    }
-    header {
-      background-color: #004b8d;
-      color: white;
-      padding: 1em 2em;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    nav a {
-      color: white;
-      margin: 0 1em;
-      text-decoration: none;
-    }
-    .hero {
-      padding: 4em 2em;
-      background-color: #e6f0fa;
-      text-align: center;
-    }
-    .hero h1 {
-      color: #004b8d;
-    }
-    .btn-discord {
-      background-color: #5865F2;
-      color: white;
-      padding: 1em 2em;
-      text-decoration: none;
-      border-radius: 5px;
-      display: inline-block;
-      margin-top: 1em;
-    }
-    footer {
-      background: #004b8d;
-      color: white;
-      text-align: center;
-      padding: 1em;
-      margin-top: 2em;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urssaf - Union de recouvrement des cotisations de sécurité sociale</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+            min-height: 100vh;
+        }
+
+        .header {
+            background: #2d5aa0;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-top {
+            background: #1e3a5f;
+            padding: 8px 0;
+            font-size: 14px;
+        }
+
+        .header-top-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            color: white;
+        }
+
+        .header-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .header-links a {
+            color: #a8c5f0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .header-links a:hover {
+            color: white;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .menu-btn {
+            background: #1e3a5f;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .menu-btn:hover {
+            background: #16304d;
+            transform: translateY(-1px);
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            margin-left: 20px;
+        }
+
+        .logo {
+            color: white;
+            font-size: 32px;
+            font-weight: bold;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, #4a90e2, #357abd);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .tagline {
+            color: #a8c5f0;
+            font-size: 14px;
+            font-style: italic;
+            margin-top: 5px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .search-container {
+            position: relative;
+        }
+
+        .search-input {
+            padding: 12px 45px 12px 15px;
+            border: none;
+            border-radius: 25px;
+            width: 280px;
+            font-size: 14px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            width: 320px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #4a90e2;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .search-btn:hover {
+            background: #357abd;
+        }
+
+        .login-btn {
+            background: white;
+            color: #2d5aa0;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .login-btn:hover {
+            background: #f0f8ff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .hero-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 60px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1), transparent);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text {
+            flex: 1;
+            color: white;
+        }
+
+        .hero-title {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .hero-subtitle {
+            font-size: 24px;
+            color: #e8f2ff;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .hero-description {
+            font-size: 18px;
+            color: #d1e7ff;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 20px;
+        }
+
+        .cta-primary, .cta-secondary {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cta-primary {
+            background: white;
+            color: #2d5aa0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .cta-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .cta-secondary:hover {
+            background: white;
+            color: #2d5aa0;
+        }
+
+        .hero-image {
+            flex: 0 0 320px;
+            height: 320px;
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 60px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,0.2), transparent);
+        }
+
+        .services-section {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+
+        .services-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .services-title {
+            color: #2d5aa0;
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .services-question {
+            color: #666;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .services-underline {
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, #4a90e2, #357abd);
+            margin: 0 auto;
+            border-radius: 2px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .service-card {
+            background: #f8faff;
+            border: 2px solid #e8f2ff;
+            border-radius: 15px;
+            padding: 35px 30px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.4s ease;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(74, 144, 226, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .service-card:hover::before {
+            left: 100%;
+        }
+
+        .service-card:hover {
+            border-color: #4a90e2;
+            background: #f0f8ff;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(74, 144, 226, 0.2);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #4a90e2, #357abd);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 28px;
+            flex-shrink: 0;
+            box-shadow: 0 8px 20px rgba(74, 144, 226, 0.3);
+            transition: all 0.3s;
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .service-content {
+            flex: 1;
+        }
+
+        .service-title {
+            color: #2d5aa0;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .service-subtitle {
+            color: #666;
+            font-size: 15px;
+            line-height: 1.4;
+        }
+
+        .service-arrow {
+            color: #4a90e2;
+            font-size: 20px;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .service-card:hover .service-arrow {
+            transform: translateX(8px) scale(1.2);
+        }
+
+        .additional-section {
+            background: linear-gradient(135deg, #f8faff 0%, #e8f2ff 100%);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .additional-title {
+            color: #2d5aa0;
+            font-size: 28px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .additional-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .info-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .info-card h3 {
+            color: #2d5aa0;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .info-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .info-card a {
+            color: #4a90e2;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s;
+        }
+
+        .info-card a:hover {
+            color: #357abd;
+            transform: translateX(5px);
+        }
+
+        .footer {
+            background: #1e3a5f;
+            color: white;
+            padding: 50px 0 30px;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul li a {
+            color: #a8c5f0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section ul li a:hover {
+            color: white;
+        }
+
+        .discord-link {
+            background: #5865f2;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: bold;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .discord-link:hover {
+            background: #4752c4;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(88, 101, 242, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .search-input {
+                width: 200px;
+            }
+
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-image {
+                margin-left: 0;
+                margin-top: 30px;
+            }
+
+            .hero-title {
+                font-size: 32px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .service-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 30px 20px;
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .notification-bar {
+            background: #ff6b6b;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            font-weight: bold;
+            animation: slideDown 0.5s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px 20px;
+            text-align: center;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+    </style>
 </head>
 <body>
+    <div class="notification-bar">
+        🎉 Nouveau : Découvrez nos services en ligne simplifiés ! Rejoignez notre communauté Discord
+    </div>
 
-  <header>
-    <div><strong>URSSAF Discord</strong></div>
-    <nav>
-      <a href="#">Accueil</a>
-      <a href="#">Services</a>
-      <a href="#">Espace Membre</a>
-      <a href="#">Contact</a>
-    </nav>
-  </header>
+    <div class="header-top">
+        <div class="header-top-content">
+            <div class="header-links">
+                <a href="https://www.urssaf.fr/portail/home/espaces-dedies/particuliers.html">Particuliers</a>
+                <a href="https://www.urssaf.fr/portail/home/espaces-dedies/entreprises.html">Entreprises</a>
+                <a href="https://www.urssaf.fr/portail/home/espaces-dedies/travailleurs-independants.html">Indépendants</a>
+                <a href="https://www.urssaf.fr/portail/home/actualites.html">Actualités</a>
+            </div>
+            <div>Créer votre espace en ligne</div>
+        </div>
+    </div>
 
-  <section class="hero">
-    <h1>Bienvenue sur l’URSSAF Discord</h1>
-    <p>La référence en matière de contributions sociales... version Discord.</p>
-    <a class="btn-discord" href="https://discord.gg/TON-LIEN">Rejoindre le Discord</a>
-  </section>
+    <header class="header">
+        <div class="header-content">
+            <button class="menu-btn">
+                <span>☰</span> Menu
+            </button>
+            
+            <div class="logo-section">
+                <div>
+                    <div class="logo">
+                        <div class="logo-icon">🔷</div>
+                        Urssaf
+                    </div>
+                    <div class="tagline">Au service de votre protection sociale</div>
+                </div>
+            </div>
+            
+            <div class="header-actions">
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Rechercher un service, une aide...">
+                    <button class="search-btn">🔍</button>
+                </div>
+                <a href="https://mon.urssaf.fr/portail/home.html" class="login-btn">
+                    <span>🔒</span> Se connecter
+                </a>
+            </div>
+        </div>
+    </header>
 
-  <footer>
-    &copy; 2025 URSSAF Discord — Site non officiel
-  </footer>
+    <main class="main-content">
+        <section class="hero-section fade-in">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">Découvrez tous les services de l'Urssaf</h1>
+                    <p class="hero-subtitle">Votre partenaire pour la protection sociale</p>
+                    <p class="hero-description">
+                        Simplifiez vos démarches administratives, gérez vos cotisations en ligne, 
+                        et accédez à tous vos services personnalisés en quelques clics. 
+                        L'Urssaf vous accompagne dans toutes vos démarches.
+                    </p>
+                    <div class="hero-cta">
+                        <a href="https://mon.urssaf.fr/portail/home.html" class="cta-primary">
+                            <span>🚀</span> Commencer maintenant
+                        </a>
+                        <a href="https://discord.gg/j2zeSEVEk5" class="cta-secondary">
+                            <span>💬</span> Rejoindre Discord
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <span style="font-size: 120px; position: relative; z-index: 1;">👩‍💼</span>
+                </div>
+            </div>
 
-</body>
-</html>
+            <div class="stats-section">
+                <div class="stat-card">
+                    <span class="stat-number">2.3M</span>
+                    <span class="stat-label">Entreprises accompagnées</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">15M</span>
+                    <span class="stat-label">Salariés protégés</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">24h/7j</span>
+                    <span class="stat-label">Services disponibles</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">98%</span>
+                    <span class="stat-label">Satisfaction client</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="services-section fade-in">
+            <div class="services-header">
+                <h2 class="services-title">Découvrez tous les services de l'Urssaf</h2>
+                <p class="services-question">Que souhaitez-vous faire ?</p>
+                <div class="services-underline"></div>
+            </div>
+            
+            <div class="services-grid">
+                <a href="https://www.urssaf.fr/portail/home/employeur/creer-mon-compte-employeur.html" class="service-card">
+                    <div class="service-icon">➕</div>
+                    <div class="service-content">
+                        <div class="service-title">Vos débuts avec</div>
+                        <div class="service-subtitle">l'Urssaf</div>
+                    </div>
+                    <div class="service-arrow">→</div>
+                </a>
+                
+                <a href="https://www.urssaf.fr/portail/home/employeur/embaucher.html" class="service-card">
+                    <div class="service-icon">👤</div>
+                    <div class="service-content">
+                        <div class="service-title">Embaucher et/ou gérer</div>
+                        <div class="service-subtitle">un salarié</div>
+                    </div>
+                    <div class="service-arrow">→</div>
+                </a>
+                
+                <a href="https://www.urssaf.fr/portail/home/employeur/calculer-mes-cotisations.html" class="service-card">
+                    <div class="service-icon">💰</div>
+                    <div class="service-content">
+                        <div class="service-title">Estimer le coût de</div>
+                        <div class="service-subtitle">l'embauche</div>
+                    </div>
+                    <div class="service-arrow">→</div>
+                </a>
+
+                <a href="https://www.urssaf.fr/portail/home/contacter-urssaf.html" class="service-card">
+                    <div class="service-icon">✉️</div>
+                    <div class="service-content">
+                        <div class="service-title">Contacter l'Urssaf</div>
+                        <div class="service-subtitle">Support et assistance</div>
+                    </div>
+                    <div class="service-arrow">→</div>
+                </a>
+                
+                <a href="https://www.urssaf.fr/portail/home/taux-et-baremes/taux-de-cotisations/le-smic.html" class="service-card">
+                    <div class="service-icon">📊</div>
+                    <div class="service-content">
+                        <div class="service-title">Connaître le montant</div>
+                        <div class="service-subtitle">du Smic</div>
+                    </div>
+                    <div class="service-arrow">→</div>
+                </a>
+                
+                <a href="https://www.urssaf.fr/portail/home/employeur/obtenir-une-attestation.html" class="service-card">
+                    <div class="service-icon">🛡️</div>
+                    <div class="service-content">
+                        <div class="service-title">S'informer sur</div>
+                        <div class="service-subtitle">l'attestation de vigilance</div>
+                    </div>
+                    <div class="service-arrow">→</div>
+                </a>
+            </div>
+        </section>
+
+        <section class="additional-section">
+            <h2 class="additional-title">Services complémentaires</h2>
+            <div class="additional-grid">
+                <div class="info-card">
+                    <h3>Aide et accompagnement</h3>
+                    <p>Nos conseillers vous accompagnent dans toutes vos démarches. Support téléphonique, chat en ligne et documentation complète.</p>
+                    <a href="https://www.urssaf.fr/portail/home/aide-et-contact.html">
+                        En savoir plus <span>→</span>
+                    </a>
+                </div>
+                
+                <div class="info-card">
+                    <h3>Formation et webinaires</h3>
+                    <p>Participez à nos formations gratuites pour maîtriser vos obligations sociales et optimiser votre gestion.</p>
+                    <a href="https://www.urssaf.fr/portail/home/services-en-ligne/formations.html">
+                        Voir le planning <span>→</span>
+                    </a>
+                </div>
+                
+                <div class="info-card">
+                    <h3>Actualités et réglementation</h3>
+                    <p>Restez informé des dernières évolutions réglementaires et des actualités qui concernent votre activité.</p>
+                    <a href="https://www.urssaf.fr/portail/home/actualites.html">
+                        Lire les actualités <span>→</span>
+                    </a>
+                </div>
+
+                <div class="info-card">
+                    <h3>Communauté Discord</h3>
+                    <p>Rejoignez notre communauté Discord pour échanger avec d'autres entrepreneurs et obtenir de l'aide en temps réel.</p>
+                    <a href="https://discord.gg/j2zeSEVEk5" class="discord-link">
+                        <span>🎮</span> Rejoindre Discord
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="https://mon.urssaf.fr/">Mon compte Urssaf</a></li>
+                    <li><a href="https://www.urssaf.fr/portail/home/employeur.html">Espace employeur</a></li>
+                    <li><a href="https://www.urssaf.fr/portail/home/travailleur-independant.html">Espace indépendant</a></li>
+                    <li><a href="https://www.cesu.urssaf.fr/">CESU</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Aide & Contact</h4>
+                <ul>
+                    <li><a href="https://www.urssaf.fr/portail/home/contacter-urssaf.html">Nous contacter</a></li>
+                    <li><a href="https://www.urssaf.fr/portail/home/aide-et-contact/foire-aux-questions.html">FAQ</a></li>
+                    <li><a href="https://discord.gg/j2zeSEVEk5">Discord</a></li>
+                    <li><a href="https://www.urssaf.fr/portail/home/aide-et-contact/tutoriels.html">Tutoriels</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>L'Urssaf</h4>
+                <ul>
+                    <li><a href="https://www.urssaf.fr/portail/home/urssaf/qui-sommes-nous.html">Qui sommes-nous</a></li>
+                    <li><a href="https://www.urssaf.fr/portail/home/urssaf/nos-missions.html">Nos missions</a></li>
+                    <li><a href="
